@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -10,8 +8,6 @@
  * 
  */
 UCLASS()
-class AURA_API AAuraEnemy : public AAuraCharacterBase
-{
+class AURA_API AAuraEnemy : public AAuraCharacterBase{
 	GENERATED_BODY()
-	
 };
