@@ -37,8 +37,8 @@ void AAuraPlayerController::SetupInputComponent() {
 
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue) {
 	const FVector2D InputAxiVector = InputActionValue.Get<FVector2D>();
-	const FRotator ControlRotation = GetControlRotation();
-	const FRotator YawRotation(0, ControlRotation.Yaw, 0);
+	const FRotator ControllerRotation = GetControlRotation();
+	const FRotator YawRotation(0, ControllerRotation.Yaw, 0);
 
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
