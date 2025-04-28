@@ -7,7 +7,6 @@
 #include "AuraCharacterBase.generated.h"
 
 class UAttributeSet;
-class UAuraAttributeSet;
 class UAbilitySystemComponent;
 
 UCLASS(Abstract)
@@ -32,5 +31,5 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
-	TObjectPtr<UAuraAttributeSet> AttributeSet;
+	TObjectPtr<UAttributeSet> AttributeSet;
 };
