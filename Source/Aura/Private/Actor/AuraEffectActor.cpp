@@ -1,7 +1,7 @@
 // 
 
 
-#include "AuraEffectActor.h"
+#include "Actor/AuraEffectActor.h"
 
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemInterface.h"
