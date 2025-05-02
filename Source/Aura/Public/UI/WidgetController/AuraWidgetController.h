@@ -8,12 +8,46 @@
 
 class UAuraAttributeSet;
 class UAbilitySystemComponent;
+
+USTRUCT(BlueprintType)
+struct FWidgetControlledParams{
+	GENERATED_BODY()
+
+	FWidgetControlledParams()
+	: PlayerController(nullptr), PlayerState(nullptr), AbilitySystemComponent(nullptr), AttributeSet(nullptr) {
+		
+	}
+
+	FWidgetControlledParams(APlayerController* PC, APlayerState* PS,
+	                        UAbilitySystemComponent* ASC, UAuraAttributeSet* AS)
+	: PlayerController(PC),PlayerState(PS),AbilitySystemComponent(ASC),AttributeSet(AS) {
+		
+	}
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TObjectPtr<APlayerController> PlayerController = nullptr;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TObjectPtr<APlayerState> PlayerState = nullptr;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent = nullptr;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TObjectPtr<UAuraAttributeSet> AttributeSet = nullptr;
+};
+
 /**
  * 
  */
 UCLASS()
 class AURA_API UAuraWidgetController : public UObject{
 	GENERATED_BODY()
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void Initialize(const FWidgetControlledParams& Params);
+	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category="Widget Controller")
 	TObjectPtr<APlayerController> PlayerController;
