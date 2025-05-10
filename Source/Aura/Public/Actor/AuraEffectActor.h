@@ -9,8 +9,12 @@
 class UGameplayEffect;
 class USphereComponent;
 
+UENUM(BlueprintType)
+enum EEffectApplicationPolicy {
+};
+
 UCLASS()
-class AURA_API AAuraEffectActor : public AActor{
+class AURA_API AAuraEffectActor : public AActor {
 	GENERATED_BODY()
 
 public:
@@ -20,11 +24,14 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable)
-	void ApplyEffectToTarget(AActor* TargetActor,TSubclassOf<UGameplayEffect>GameplayEffectClass);
-	
+	void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
 	TSubclassOf<UGameplayEffect> InstantEffect;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
 	TSubclassOf<UGameplayEffect> DurationEffectClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Effects")
+	TSubclassOf<UGameplayEffect> InfiniteEffectClass;
 };
