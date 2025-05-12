@@ -15,6 +15,9 @@
 /**
  * 
  */
+
+struct FGameplayEffectModCallbackData;
+
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet{
 	GENERATED_BODY()
@@ -22,6 +25,9 @@ public:
 	UAuraAttributeSet();
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+	
 	UPROPERTY(BlueprintReadOnly,ReplicatedUsing = OnRep_Health,Category="Vital Attributes")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet,Health)
