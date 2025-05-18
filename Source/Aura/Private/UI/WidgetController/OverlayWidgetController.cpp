@@ -16,7 +16,7 @@ void UOverlayWidgetController::BroadcastInitialValues() {
 
 void UOverlayWidgetController::BindCallbacksToDependencies() {
 	const UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
-	UAuraAbilitySystemComponent* AuraASC = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)
+	UAuraAbilitySystemComponent* AuraASC = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetHealthAttribute()).AddUObject(
 		this,
 		&UOverlayWidgetController::HealthChanged
@@ -36,11 +36,9 @@ void UOverlayWidgetController::BindCallbacksToDependencies() {
 	);
 
 	AuraASC->EffectAssetsTags.AddLambda(
-
 	[](const FGameplayTagContainer& AssetTags) {
 		
 		}
-
 	);
 
 	//AuraASC->EffectAssetsTags.AddUObject()
