@@ -6,6 +6,7 @@
 #include "AuraWidgetController.h"
 #include "OverlayWidgetController.generated.h"
 
+struct FGameplayTagContainer;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChangedSignature, float, NewMana);
@@ -43,4 +44,5 @@ protected:
 	void MaxHealthChanged(const FOnAttributeChangeData& OldMaxHealth) const;
 	void ManaChanged(const FOnAttributeChangeData& OldMana) const;
 	void MaxManaChanged(const FOnAttributeChangeData& OldMaxMana) const;
+	void OnEffectAssetTagsRecieved(const FGameplayTagContainer& AssetTags);
 };
