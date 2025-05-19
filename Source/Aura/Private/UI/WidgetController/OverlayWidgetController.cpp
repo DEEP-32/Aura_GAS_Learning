@@ -36,8 +36,14 @@ void UOverlayWidgetController::BindCallbacksToDependencies() {
 	);
 
 	AuraASC->EffectAssetsTags.AddLambda(
-	[](const FGameplayTagContainer& AssetTags) {
-		
+		[this](const FGameplayTagContainer& AssetTags) {
+			for (const FGameplayTag& Tag : AssetTags) {
+				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+				if (Tag.MatchesTag(MessageTag)) {
+					FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable,Tag);
+					MessageWidgetRowDelegate.Broadcast(*Row);
+				}
+			}
 		}
 	);
 
@@ -57,12 +63,3 @@ void UOverlayWidgetController::MaxManaChanged(const FOnAttributeChangeData& OldM
 	OnMaxManaChanged.Broadcast(OldMaxMana.NewValue);
 }
 
-void UOverlayWidgetController::OnEffectAssetTagsRecieved(const FGameplayTagContainer& AssetTags) {
-
-	for (const FGameplayTag& Tag : AssetTags) {
-		//TODO : Broadcast the tag to widget controller.
-
-		const FString TagString = FString::Printf(TEXT("Get Tag : %s"), *Tag.ToString());
-		GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Blue,TagString);
-	}
-}

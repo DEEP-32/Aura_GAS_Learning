@@ -7,16 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "OverlayWidgetController.generated.h"
 
-
 class UAuraUserWidget;
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChangedSignature, float, NewMana);
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaChangedSignature, float, NewMaxMana);
-
 
 USTRUCT(BlueprintType)
 struct FUIWidgetRow : public FTableRowBase {
@@ -34,6 +25,16 @@ struct FUIWidgetRow : public FTableRowBase {
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	UTexture2D* Image = nullptr;
 };
+
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChangedSignature, float, NewMana);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaChangedSignature, float, NewMaxMana);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessgaeWidgetRowSignature, FUIWidgetRow, Row);
+
+
 
 /**
  * 
@@ -62,6 +63,9 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
 	FOnManaChangedSignature OnMaxManaChanged;
 
+	UPROPERTY(BlueprintAssignable, Category="GAS|Messages")
+	FMessgaeWidgetRowSignature MessageWidgetRowDelegate;
+
 protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="WidgetData")
@@ -71,5 +75,13 @@ protected:
 	void MaxHealthChanged(const FOnAttributeChangeData& OldMaxHealth) const;
 	void ManaChanged(const FOnAttributeChangeData& OldMana) const;
 	void MaxManaChanged(const FOnAttributeChangeData& OldMaxMana) const;
-	void OnEffectAssetTagsRecieved(const FGameplayTagContainer& AssetTags);
+
+	template<typename T>
+	T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag) const;
 };
+
+template <typename T>
+T* UOverlayWidgetController::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag) const {
+	
+	return DataTable->FindRow<T>(Tag.GetTagName(),TEXT(""));
+}
