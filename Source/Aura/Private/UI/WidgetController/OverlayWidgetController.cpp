@@ -61,16 +61,4 @@ void UOverlayWidgetController::BindCallbacksToDependencies() {
 	//AuraASC->EffectAssetsTags.AddUObject()
 }
 
-void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& OldMaxHealth) const {
-	OnMaxHealthChanged.Broadcast(OldMaxHealth.NewValue);
-}
-void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& OldHealth) const {
-	OnHealthChanged.Broadcast(OldHealth.NewValue);
-}
-void UOverlayWidgetController::ManaChanged(const FOnAttributeChangeData& OldMana) const {
-	OnManaChanged.Broadcast(OldMana.NewValue);
-}
-void UOverlayWidgetController::MaxManaChanged(const FOnAttributeChangeData& OldMaxMana) const {
-	OnMaxManaChanged.Broadcast(OldMaxMana.NewValue);
-}
 
