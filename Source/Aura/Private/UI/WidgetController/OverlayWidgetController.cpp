@@ -17,23 +17,34 @@ void UOverlayWidgetController::BroadcastInitialValues() {
 void UOverlayWidgetController::BindCallbacksToDependencies() {
 	const UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
 	UAuraAbilitySystemComponent* AuraASC = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent);
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetHealthAttribute()).AddUObject(
-		this,
-		&UOverlayWidgetController::HealthChanged
-	);
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetHealthAttribute())
+		.AddLambda(
+			[this](const FOnAttributeChangeData& OldHealth) {
+				OnHealthChanged.Broadcast(OldHealth.NewValue);
+			}		
+        );
 
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxHealthAttribute()).AddUObject(
-		this,
-		&UOverlayWidgetController::MaxHealthChanged
-	);
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetManaAttribute()).AddUObject(
-		this,
-		&UOverlayWidgetController::ManaChanged
-	);
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxManaAttribute()).AddUObject(
-		this,
-		&UOverlayWidgetController::MaxManaChanged
-	);
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxHealthAttribute())
+		.AddLambda(
+			  [this](const FOnAttributeChangeData& OldMaxHealth) {
+				  OnHealthChanged.Broadcast(OldMaxHealth.NewValue);
+			  }		
+		);
+
+	
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetManaAttribute())
+		.AddLambda(
+			[this](const FOnAttributeChangeData& OldMana) {
+				OnHealthChanged.Broadcast(OldMana.NewValue);
+			}		
+		);
+	
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxManaAttribute())
+		.AddLambda(
+				[this](const FOnAttributeChangeData& OldMaxMana) {
+					OnHealthChanged.Broadcast(OldMaxMana.NewValue);
+				}		
+		);
 
 	AuraASC->EffectAssetsTags.AddLambda(
 		[this](const FGameplayTagContainer& AssetTags) {
