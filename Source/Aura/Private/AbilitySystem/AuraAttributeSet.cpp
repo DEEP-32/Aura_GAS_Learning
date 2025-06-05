@@ -12,8 +12,6 @@
 UAuraAttributeSet::UAuraAttributeSet() {
 	InitHealth(50.f);
 	InitMana(50.f);
-	InitMaxHealth(100.f);
-	InitMaxMana(100.f);
 }
 
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const {
@@ -124,7 +122,7 @@ void UAuraAttributeSet::OnRep_HealthRegeneration(const FGameplayAttributeData& O
 }
 
 void UAuraAttributeSet::OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,)
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,ManaRegeneration,OldManaRegeneration)
 }
 
 void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Properties) const{
