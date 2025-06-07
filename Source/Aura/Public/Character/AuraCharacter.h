@@ -17,6 +17,10 @@ public:
 	UPROPERTY(EditAnywhere, Category="Movement")
 	float RotationSpeedZ = 540;
 
+	//combat interface
+	virtual int32 GetPlayerLevel() override;
+	//end combat interface
+	
 protected:
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;

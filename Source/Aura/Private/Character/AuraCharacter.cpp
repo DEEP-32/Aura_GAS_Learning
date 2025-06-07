@@ -23,6 +23,12 @@ AAuraCharacter::AAuraCharacter() {
 	
 }
 
+int32 AAuraCharacter::GetPlayerLevel() {
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+	return AuraPlayerState->GetPlayerLevel();
+}
+
 //Called in the server
 void AAuraCharacter::PossessedBy(AController* NewController) {
 	Super::PossessedBy(NewController);

@@ -9,7 +9,7 @@
  * 
  */
 UCLASS()
-class AURA_API AAuraEnemy : public AAuraCharacterBase,public  IEnemyInterface{
+class AURA_API AAuraEnemy : public AAuraCharacterBase,public IEnemyInterface{
 	GENERATED_BODY()
 
 public:
@@ -19,6 +19,11 @@ public:
 	virtual void HighlightActor() override;
 	virtual void UnhighlightACtor() override;
 	//End Enemy interface
+
+	//Combat Interface
+	virtual int32 GetPlayerLevel() override;
+	
+	//End Combat Interface
 	
 	UPROPERTY(BlueprintReadOnly)
 	bool bHighlighted = false;
@@ -26,4 +31,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void InitAbilityActorInfo() override;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Character class defaults")
+	int32 Level = 1;
 };
