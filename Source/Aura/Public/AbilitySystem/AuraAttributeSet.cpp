@@ -1,7 +1,7 @@
 // 
 
 
-#include "AuraAttributeSet.h"
+#include "AbilitySystem/AuraAttributeSet.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
