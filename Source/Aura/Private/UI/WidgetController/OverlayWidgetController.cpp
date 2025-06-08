@@ -12,6 +12,26 @@ void UOverlayWidgetController::BroadcastInitialValues() {
 	OnMaxHealthChanged.Broadcast(AuraAttributeSet->GetMaxHealth());
 	OnManaChanged.Broadcast(AuraAttributeSet->GetMana());
 	OnMaxManaChanged.Broadcast(AuraAttributeSet->GetMaxMana());
+
+	/*GEngine->AddOnScreenDebugMessage(
+		1,
+		10,
+		FColor::Blue,
+		FString::Printf(TEXT("Broadcasted Health value : %f"),AuraAttributeSet->GetHealth())
+	);*/
+
+	UE_LOG(LogTemp,Warning,TEXT("Broadcasted Health value : %f"),AuraAttributeSet->GetHealth());
+	
+	/*GEngine->AddOnScreenDebugMessage(
+		1,
+		10,
+		FColor::Blue,
+		FString::Printf(TEXT("Broadcasted Max Health value : %f"),AuraAttributeSet->GetMaxHealth())
+		
+	);*/
+
+
+	UE_LOG(LogTemp,Warning,TEXT("Broadcasted Max Health value : %f"),AuraAttributeSet->GetMaxHealth());
 }
 
 void UOverlayWidgetController::BindCallbacksToDependencies() {
