@@ -34,7 +34,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags() {
 	
 	GameplayTags.Attributes_Secondary_ArmorPenetration = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.ArmorPenetration"),
-		FString("Ignores percentage of enemy armor")
+		FString("Ignores percentage of enemy armor, increases critical hit chance")
 	);
 	
 	GameplayTags.Attributes_Secondary_BlockChance = UGameplayTagsManager::Get().AddNativeGameplayTag(
@@ -44,7 +44,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags() {
 	
 	GameplayTags.Attributes_Secondary_CriticalHitChance = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.CriticalHitChance"),
-		FString("Chance to perform a critical hit")
+		FString("Chance to double damage plus critical hit bonus")
 	);
 	
 	GameplayTags.Attributes_Secondary_CriticalHitDamage = UGameplayTagsManager::Get().AddNativeGameplayTag(
