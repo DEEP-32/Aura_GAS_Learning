@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -7,8 +5,7 @@
 /**
  * 
  */
-class AURA_API AuraGameplayTags
-{
+class AURA_API AuraGameplayTags {
 public:
 	AuraGameplayTags();
 	~AuraGameplayTags();
