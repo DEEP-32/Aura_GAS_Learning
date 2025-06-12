@@ -16,10 +16,10 @@ struct FAuraAttributeInfo {
 	FGameplayTag AttributeTag = FGameplayTag();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	FText AttributeName;
+	FText AttributeName = FText();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	FText AttributeDescription;
+	FText AttributeDescription = FText();
 
 	UPROPERTY(BlueprintReadOnly)
 	float AttributeValue = 0.0f;
