@@ -8,7 +8,16 @@
 #include "AuraGameplayTags.h"
 
 void UAttributeMenuWidgetController::BindCallbacksToDependencies() {
-	
+	UAuraAttributeSet* AS = CastChecked<UAuraAttributeSet>(AttributeSet);
+	check(AttributeInfo);
+
+	for (FAuraAttributeInfo& Info : AttributeInfo.Get()->AttributesInfo) {
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Info.Attribute).AddLambda(
+				[this,&Info](const FOnAttributeChangeData& Data){
+					BroadcastAttributeInfo(Info);
+				}
+		);
+	} 
 }
 
 void UAttributeMenuWidgetController::BroadcastInitialValues() {
@@ -17,8 +26,12 @@ void UAttributeMenuWidgetController::BroadcastInitialValues() {
 
 	check(AttributeInfo);
 
-	FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfoFromTag(FAuraGameplayTags::Get().Attributes_Primary_Strength);
-	Info.AttributeValue = AS->GetStrength();
+	for (FAuraAttributeInfo& AttributesInfo : AttributeInfo.Get()->AttributesInfo) {
+		BroadcastAttributeInfo(AttributesInfo);
+	} 
+}
 
+void UAttributeMenuWidgetController::BroadcastAttributeInfo(FAuraAttributeInfo& Info) {
+	Info.AttributeValue = Info.Attribute.GetNumericValue(AttributeSet);
 	AttributeInfoDelegate.Broadcast(Info);
 }
