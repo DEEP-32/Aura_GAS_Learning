@@ -34,6 +34,7 @@ void AAuraCharacter::PossessedBy(AController* NewController) {
 	Super::PossessedBy(NewController);
 
 	InitAbilityActorInfo();
+	AddCharacterAbilities();
 }
 
 //Called in the client player state is replicated
@@ -41,6 +42,7 @@ void AAuraCharacter::OnRep_PlayerState() {
 	Super::OnRep_PlayerState();
 
 	InitAbilityActorInfo();
+	
 }
 
 void AAuraCharacter::InitAbilityActorInfo() {

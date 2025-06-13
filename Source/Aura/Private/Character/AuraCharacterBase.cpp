@@ -1,5 +1,7 @@
 #include "Character/AuraCharacterBase.h"
 
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
+
 AAuraCharacterBase::AAuraCharacterBase() {
 	PrimaryActorTick.bCanEverTick = false;
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
@@ -27,6 +29,15 @@ void AAuraCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> Gameplay
 		GameplayEffectClass, Level, EffectContextHandle
 	);
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*EffectSpecHandle.Data.Get(),GetAbilitySystemComponent());
+}
+
+void AAuraCharacterBase::AddCharacterAbilities() {
+
+	if (!HasAuthority()) return;
+
+	UAuraAbilitySystemComponent* AuraAsc = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent);
+	check(AuraAsc);
+	AuraAsc->AddCharacterAbilities(AbilityClasses);
 }
 
 void AAuraCharacterBase::InitializeDefaultAttribute() const {
