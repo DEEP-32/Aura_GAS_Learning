@@ -57,7 +57,7 @@ private:
 
 	UAuraAbilitySystemComponent* GetASC();
 
-	FVector CachedDistance = FVector::ZeroVector;
+	FVector CachedDestination = FVector::ZeroVector;
 	float FollowTime = 0.0f;
 	float ShortPressedThreshold = 0.2f;
 	bool bAutoRunning = false;

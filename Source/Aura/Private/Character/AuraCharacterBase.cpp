@@ -1,6 +1,7 @@
 #include "Character/AuraCharacterBase.h"
 
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 
 AAuraCharacterBase::AAuraCharacterBase() {
 	PrimaryActorTick.bCanEverTick = false;
