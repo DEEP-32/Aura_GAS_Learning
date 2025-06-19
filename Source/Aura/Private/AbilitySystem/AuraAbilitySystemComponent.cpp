@@ -3,8 +3,8 @@
 
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 
-#include "AuraGameplayAbility.h"
 #include "AuraGameplayTags.h"
+#include "AbilitySystem/Ablities/AuraGameplayAbility.h"
 
 
 void UAuraAbilitySystemComponent::AbilityActorInfoSet() {
