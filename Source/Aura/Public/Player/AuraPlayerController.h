@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
+#include "Engine/HitResult.h"
 #include "GameFramework/PlayerController.h"
 #include "AuraPlayerController.generated.h"
 
@@ -43,7 +44,7 @@ private:
 
 	TScriptInterface<IEnemyInterface> LastHighlightedActor;
 	TScriptInterface<IEnemyInterface> CurrentHighlightedActor;
-
+	FHitResult CursorHitResult;
 
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);

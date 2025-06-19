@@ -5,7 +5,6 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AuraGameplayTags.h"
-#include "DrawDebugHelpers.h"
 #include "EnhancedInputSubsystems.h"
 #include "NavigationPath.h"
 #include "NavigationSystem.h"
@@ -97,7 +96,7 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue) {
 }
 
 void AAuraPlayerController::CursorTrace() {
-	FHitResult CursorHitResult;
+	
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHitResult);
 	if (!CursorHitResult.bBlockingHit) {
 		return;
@@ -141,14 +140,13 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag) {
 	}
 
 	else {
-		APawn* ControllerPawn = GetPawn();
+		const APawn* ControllerPawn = GetPawn();
 		if (FollowTime <= ShortPressedThreshold && ControllerPawn) {
 			if (const UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(
 				this, ControllerPawn->GetActorLocation(), CachedDestination)) {
 				Spline->ClearSplinePoints();
 				for (const FVector& PathPoint : NavPath->PathPoints) {
 					Spline->AddSplinePoint(PathPoint,ESplineCoordinateSpace::World);
-					DrawDebugSphere(GetWorld(),PathPoint,8.f,8,FColor::Green,false,5.f);
 				}
 				CachedDestination = NavPath->PathPoints.Last();
 				bAutoRunning = true;
@@ -176,10 +174,8 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag) {
 	else {
 		FollowTime += GetWorld()->GetDeltaSeconds();
 
-		FHitResult HitResult;
-
-		if (GetHitResultUnderCursor(ECC_Visibility, false, HitResult)) {
-			CachedDestination = HitResult.ImpactPoint;
+		if (CursorHitResult.bBlockingHit) {
+			CachedDestination = CursorHitResult.ImpactPoint;
 		}
 
 		if (APawn* ControllerPawn = GetPawn()) {

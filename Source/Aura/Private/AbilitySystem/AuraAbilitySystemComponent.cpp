@@ -8,10 +8,10 @@
 
 
 void UAuraAbilitySystemComponent::AbilityActorInfoSet() {
-	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraAbilitySystemComponent::EffectApplied);
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraAbilitySystemComponent::ClientEffectApplied);
 }
 
-void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AffectingComponent,
+void UAuraAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* AffectingComponent,
                                                 const FGameplayEffectSpec& Spec, FActiveGameplayEffectHandle Handle) {
 	FGameplayTagContainer TagContainer;
 	Spec.GetAllAssetTags(TagContainer);
