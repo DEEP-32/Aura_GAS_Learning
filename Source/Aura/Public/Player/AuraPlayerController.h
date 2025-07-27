@@ -19,26 +19,32 @@ class UAuraAbilitySystemComponent;
  * 
  */
 UCLASS()
-class AURA_API AAuraPlayerController : public APlayerController{
+class AURA_API AAuraPlayerController : public APlayerController {
 	GENERATED_BODY()
 
 public:
 	AAuraPlayerController();
 	void AutoRun();
 	virtual void PlayerTick(float DeltaTime) override;
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
-	
-private:
 
+private:
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputMappingContext> AuraInputContext;
 
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputAction> MoveAction;
 
+	UPROPERTY(EditAnywhere, Category="Input")
+	TObjectPtr<UInputAction> ShiftAction;
+
 	void Move(const FInputActionValue& InputActionValue);
+	void ShiftPressed() { bShiftKeyDown = true; }
+	void ShiftReleased() { bShiftKeyDown = false; }
+	bool bShiftKeyDown = false;
 
 	void CursorTrace();
 
@@ -49,11 +55,11 @@ private:
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
-	
-	
-	UPROPERTY(EditDefaultsOnly,Category="Input")
+
+
+	UPROPERTY(EditDefaultsOnly, Category="Input")
 	TObjectPtr<UAuraInputConfig> InputConfig;
-	
+
 	UPROPERTY()
 	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
 
