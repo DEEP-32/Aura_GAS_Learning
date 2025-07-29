@@ -31,6 +31,9 @@ protected:
 
 private:
 
+	UPROPERTY(EditDefaultsOnly)
+	float LifeSpan;
+	
 	bool bHit = false;
 	
 	UPROPERTY(VisibleAnywhere)
