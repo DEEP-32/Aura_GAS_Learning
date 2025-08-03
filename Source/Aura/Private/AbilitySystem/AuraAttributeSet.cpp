@@ -4,11 +4,13 @@
 #include "AbilitySystem/AuraAttributeSet.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
-#include "AbilitySystemComponent.h"
-#include "Net/UnrealNetwork.h"
-#include "GameplayEffectExtension.h"
 #include "GameFramework/Character.h"
-
+#include "GameplayEffectExtension.h"
+#include "Net/UnrealNetwork.h"
+#include "AuraGameplayTags.h"
+#include "AbilitySystem/AuraAbilitySystemLibrary.h"
+#include "Interaction/CombatInterface.h"
+#include "Player/AuraPlayerController.h"
 UAuraAttributeSet::UAuraAttributeSet() {
 }
 
@@ -52,6 +54,7 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute()) {
 		SetHealth(FMath::Clamp(GetHealth(),0.f,GetMaxHealth()));
+		UE_LOG(LogTemp,Warning,TEXT("Changed HEALTH on %s : %f"),*Props.TargetAvatarActor->GetName(),GetHealth());
 	}
 	if (Data.EvaluatedData.Attribute == GetManaAttribute()) {
 		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));

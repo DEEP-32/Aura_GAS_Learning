@@ -3,6 +3,7 @@
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "Aura/Aura.h"
+#include "Components/SkeletalMeshComponent.h"
 
 AAuraEnemy::AAuraEnemy() {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
@@ -39,4 +40,6 @@ void AAuraEnemy::InitAbilityActorInfo() {
 	Super::InitAbilityActorInfo();
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+
+	InitializeDefaultAttribute();
 }
