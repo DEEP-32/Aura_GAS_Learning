@@ -70,14 +70,14 @@ void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) co
 }
 
 void UAuraAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,Health,OldMaxHealth);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,MaxHealth,OldMaxHealth);
 }
 
 void UAuraAttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,Health,OldMana);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,Mana,OldMana);
 }
 void UAuraAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,Health,OldMaxMana);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,MaxMana,OldMaxMana);
 }
 
 void UAuraAttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const {
@@ -89,11 +89,11 @@ void UAuraAttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldInte
 }
 
 void UAuraAttributeSet::OnRep_Resiliance(const FGameplayAttributeData& OldResiliance) const {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,Intelligence,OldResiliance);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,Resiliance,OldResiliance);
 }
 
 void UAuraAttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor) const {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,Intelligence,OldVigor);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,Vigor,OldVigor);
 }
 
 void UAuraAttributeSet::OnRep_Armor(const FGameplayAttributeData& OldArmor) const {

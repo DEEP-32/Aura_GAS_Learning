@@ -5,6 +5,7 @@
 
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 void UOverlayWidgetController::BroadcastInitialValues() {
 	const UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
@@ -56,6 +57,8 @@ void UOverlayWidgetController::BindCallbacksToDependencies() {
 		.AddLambda(
 			[this](const FOnAttributeChangeData& OldMana) {
 				OnManaChanged.Broadcast(OldMana.NewValue);
+
+				UE_LOG(LogTemp,Warning,TEXT("Broadcasted Mana value : %f"),OldMana.NewValue);
 			}		
 		);
 	
@@ -63,6 +66,8 @@ void UOverlayWidgetController::BindCallbacksToDependencies() {
 		.AddLambda(
 			[this](const FOnAttributeChangeData& OldMaxMana) {
 				OnMaxManaChanged.Broadcast(OldMaxMana.NewValue);
+
+				UE_LOG(LogTemp,Warning,TEXT("Broadcasted Max Mana value : %f"),OldMaxMana.NewValue)
 			}	
 		);
 
