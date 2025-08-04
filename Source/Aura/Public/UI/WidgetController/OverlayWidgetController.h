@@ -5,8 +5,11 @@
 #include "CoreMinimal.h"
 #include "AuraWidgetController.h"
 #include "GameplayTagContainer.h"
+#include "Engine/DataTable.h"
+#include "Templates/SubclassOf.h"
 #include "OverlayWidgetController.generated.h"
 
+class UTexture2D;
 class UAuraUserWidget;
 
 USTRUCT(BlueprintType)
@@ -28,8 +31,6 @@ struct FUIWidgetRow : public FTableRowBase {
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float, NewValue);
-
-
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessgaeWidgetRowSignature, FUIWidgetRow, Row);
 
 

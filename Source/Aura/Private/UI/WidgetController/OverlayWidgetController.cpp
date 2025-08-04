@@ -21,6 +21,7 @@ void UOverlayWidgetController::BroadcastInitialValues() {
 	);*/
 
 	UE_LOG(LogTemp,Warning,TEXT("Broadcasted Health value : %f"),AuraAttributeSet->GetHealth());
+	UE_LOG(LogTemp,Warning,TEXT("Broadcasted Max Health value : %f"),AuraAttributeSet->GetMaxHealth());
 	
 	/*GEngine->AddOnScreenDebugMessage(
 		1,
@@ -31,7 +32,6 @@ void UOverlayWidgetController::BroadcastInitialValues() {
 	);*/
 
 
-	UE_LOG(LogTemp,Warning,TEXT("Broadcasted Max Health value : %f"),AuraAttributeSet->GetMaxHealth());
 }
 
 void UOverlayWidgetController::BindCallbacksToDependencies() {
@@ -47,7 +47,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies() {
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxHealthAttribute())
 		.AddLambda(
 			  [this](const FOnAttributeChangeData& OldMaxHealth) {
-				  OnHealthChanged.Broadcast(OldMaxHealth.NewValue);
+				  OnMaxHealthChanged.Broadcast(OldMaxHealth.NewValue);
 			  }		
 		);
 
@@ -55,15 +55,15 @@ void UOverlayWidgetController::BindCallbacksToDependencies() {
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetManaAttribute())
 		.AddLambda(
 			[this](const FOnAttributeChangeData& OldMana) {
-				OnHealthChanged.Broadcast(OldMana.NewValue);
+				OnManaChanged.Broadcast(OldMana.NewValue);
 			}		
 		);
 	
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxManaAttribute())
 		.AddLambda(
-				[this](const FOnAttributeChangeData& OldMaxMana) {
-					OnHealthChanged.Broadcast(OldMaxMana.NewValue);
-				}		
+			[this](const FOnAttributeChangeData& OldMaxMana) {
+				OnMaxManaChanged.Broadcast(OldMaxMana.NewValue);
+			}	
 		);
 
 	AuraASC->EffectAssetsTags.AddLambda(
