@@ -50,26 +50,35 @@ void UAuraAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* World
 		return;
 	}
 
+	AActor* AvatarActor = ASC->GetAvatarActor();
+
 	const FCharacterClassDefaultInfo DefaultInfo = AuraGameMode->CharacterClassInfo->GetCharacterClassDefaultInfo(CharacterClass);
+
+	FGameplayEffectContextHandle PrimaryContextHandle = ASC->MakeEffectContext();
+	PrimaryContextHandle.AddSourceObject(AvatarActor);
 	
 	const FGameplayEffectSpecHandle PrimarySpecHandle = ASC->MakeOutgoingSpec(
 		DefaultInfo.PrimaryAttributes,
 		Level,
-		ASC->MakeEffectContext()
+		PrimaryContextHandle
 	);
 	ASC->ApplyGameplayEffectSpecToSelf(*PrimarySpecHandle.Data.Get(),FPredictionKey());
 
+	FGameplayEffectContextHandle SecondaryContextHandle = ASC->MakeEffectContext();
+	SecondaryContextHandle.AddSourceObject(AvatarActor);
 	const FGameplayEffectSpecHandle SecondarySpecHandle = ASC->MakeOutgoingSpec(
 		DefaultInfo.SecondaryAttributes,
 		Level,
-		ASC->MakeEffectContext()
+		SecondaryContextHandle
 	);
 	ASC->ApplyGameplayEffectSpecToSelf(*SecondarySpecHandle.Data.Get(),FPredictionKey());
 
+	FGameplayEffectContextHandle VitalContextHandle = ASC->MakeEffectContext();
+	VitalContextHandle.AddSourceObject(AvatarActor);
 	const FGameplayEffectSpecHandle VitalSpecHandle = ASC->MakeOutgoingSpec(
 		DefaultInfo.VitalAttributes,
 		Level,
-		ASC->MakeEffectContext()
+		VitalContextHandle
 	);
 	ASC->ApplyGameplayEffectSpecToSelf(*VitalSpecHandle.Data.Get(),FPredictionKey());
 
