@@ -84,3 +84,22 @@ void UAuraAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* World
 
 	
 }
+
+void UAuraAbilitySystemLibrary::InitializeStartupAbilities(const UObject* WorldContextObject,
+	ECharacterClass CharacterClass, UAbilitySystemComponent* Asc) {
+	
+	
+	const AAuraGameModeBase* AuraGameMode = Cast<AAuraGameModeBase>(UGameplayStatics::GetGameMode(WorldContextObject));
+	if (AuraGameMode == nullptr) {
+		return;
+	}
+
+	const AActor* AvatarActor = Asc->GetAvatarActor();
+
+	const FCharacterClassDefaultInfo DefaultInfo = AuraGameMode->CharacterClassInfo->GetCharacterClassDefaultInfo(CharacterClass);
+	
+	for (TSubclassOf<UGameplayAbility> AbilityClass : DefaultInfo.Abilities) {
+		FGameplayAbilitySpec GameplayAbilitySpec = FGameplayAbilitySpec(AbilityClass,1);
+		Asc->GiveAbility(GameplayAbilitySpec);
+	}
+}

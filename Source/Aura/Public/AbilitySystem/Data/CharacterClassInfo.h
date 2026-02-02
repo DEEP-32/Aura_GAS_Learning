@@ -8,6 +8,7 @@
 
 
 class UGameplayEffect;
+class UGameplayAbility;
 
 UENUM(BlueprintType)
 enum class ECharacterClass : uint8 {
@@ -28,6 +29,9 @@ struct FCharacterClassDefaultInfo {
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category="Attribute")
 	TSubclassOf<UGameplayEffect> VitalAttributes;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category="Ablities")
+	TArray<TSubclassOf<UGameplayAbility>> Abilities;
 
 	
 	
