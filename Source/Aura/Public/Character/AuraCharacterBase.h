@@ -10,22 +10,27 @@
 class UGameplayAbility;
 class UAttributeSet;
 class UAbilitySystemComponent;
+class UAnimMontage;
 
 UCLASS(Abstract)
 class AURA_API AAuraCharacterBase : public ACharacter,public IAbilitySystemInterface,public ICombatInterface{
 	GENERATED_BODY()
 
 public:
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UAttributeSet* GetAttributeSet() const {return AttributeSet;}
+	
+public:
 	AAuraCharacterBase();
+	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 
 protected:
 	virtual void BeginPlay() override;
-
-public:
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	UAttributeSet* GetAttributeSet() const {return AttributeSet;}
-
-protected:
+	virtual void InitAbilityActorInfo();
+	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass,float Level) const;
+	void AddCharacterAbilities();
+	void virtual InitializeDefaultAttribute() const;
+	
 	UPROPERTY(EditAnywhere, Category="Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 
@@ -40,7 +45,6 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
 
-	virtual void InitAbilityActorInfo();
 
 	UPROPERTY(EditAnywhere, Category="Attributes")
 	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
@@ -51,9 +55,6 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Attributes")
 	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
 
-	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass,float Level) const;
-	void AddCharacterAbilities();
-	void virtual InitializeDefaultAttribute() const;
 
 
 
@@ -61,5 +62,8 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly ,Category="GameplayAbility")
 	TArray<TSubclassOf<UGameplayAbility>> AbilityClasses;
+
+	UPROPERTY(EditDefaultsOnly,Category="Animation")
+	TObjectPtr<UAnimMontage> HitReactMontage;
 
 };

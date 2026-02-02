@@ -22,6 +22,11 @@ AAuraCharacterBase::AAuraCharacterBase() {
 	
 }
 
+UAnimMontage* AAuraCharacterBase::GetHitReactMontage_Implementation() {
+	return HitReactMontage;
+	
+}
+
 void AAuraCharacterBase::BeginPlay() {
 	Super::BeginPlay();
 }
