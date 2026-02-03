@@ -72,12 +72,22 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 
 			const bool bFatal = NewHealth <= 0.f;
 			
-			if (!bFatal) {
+			if (bFatal) {
+				ICombatInterface* Combat = Cast<ICombatInterface>(Props.TargetAvatarActor);
+				if (Combat) {
+					Combat->Die();
+				}
+			}
+			else {
 				FGameplayTagContainer TagContainer;
 				TagContainer.AddTag(FAuraGameplayTags::Get().Effect_HitReact);
 				if (Props.TargetASC->TryActivateAbilitiesByTag(TagContainer)) {
 					
 				}
+			}
+			
+			if (!bFatal) {
+				
 			}
 		}
 	}
