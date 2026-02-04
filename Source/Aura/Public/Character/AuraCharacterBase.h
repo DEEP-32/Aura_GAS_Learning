@@ -7,6 +7,8 @@
 #include "Interaction/CombatInterface.h"
 #include "AuraCharacterBase.generated.h"
 
+class UMaterialInstanceDynamic;
+class UMaterialInstance;
 class UGameplayAbility;
 class UAttributeSet;
 class UAbilitySystemComponent;
@@ -59,7 +61,20 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Attributes")
 	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
 
-
+	//Dissolve Effects
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="VFX|Death")
+	TObjectPtr<UMaterialInstance> DissolveMaterialInstance;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="VFX|Death")
+	TObjectPtr<UMaterialInstance> WeaponDissolveMaterialInstance;
+	
+	void Dissolve();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartDissolveTimeline(UMaterialInstanceDynamic* DynamicMaterialInstance);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartWeaponDissolveTimeline(UMaterialInstanceDynamic* DynamicMaterialInstance);
 
 
 private:

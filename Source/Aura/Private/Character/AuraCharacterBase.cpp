@@ -4,6 +4,8 @@
 #include "Aura/Aura.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Materials/MaterialInstance.h"
+#include "Materials/MaterialInstanceDynamic.h"
 
 AAuraCharacterBase::AAuraCharacterBase() {
 	PrimaryActorTick.bCanEverTick = false;
@@ -43,6 +45,7 @@ void AAuraCharacterBase::MulticastHandleDeath_Implementation() {
 	GetMesh()->SetCollisionResponseToChannel(ECC_WorldStatic,ECR_Block);
 	
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	Dissolve();
 }
 
 void AAuraCharacterBase::BeginPlay() {
@@ -55,6 +58,19 @@ UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const {
 
 FVector AAuraCharacterBase::GetCombatSocketLocation() {
 	return Weapon->GetSocketLocation(WeaponTipSocketName);
+}
+
+void AAuraCharacterBase::Dissolve() {
+	if (IsValid(DissolveMaterialInstance)) {
+		UMaterialInstanceDynamic* DynamicInst = UMaterialInstanceDynamic::Create(DissolveMaterialInstance,this);
+		GetMesh()->SetMaterial(0, DynamicInst);
+		StartDissolveTimeline(DynamicInst);
+	}
+	if (IsValid(WeaponDissolveMaterialInstance)) {
+		UMaterialInstanceDynamic* DynamicInst = UMaterialInstanceDynamic::Create(WeaponDissolveMaterialInstance,this);
+		Weapon->SetMaterial(0, DynamicInst);
+		StartWeaponDissolveTimeline(DynamicInst);
+	}
 }
 
 void AAuraCharacterBase::InitAbilityActorInfo() {
