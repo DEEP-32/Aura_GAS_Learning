@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "ScalableFloat.h"
 #include "CharacterClassInfo.generated.h"
 
 
@@ -46,6 +47,15 @@ class AURA_API UCharacterClassInfo : public UDataAsset {
 public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	TMap<ECharacterClass,FCharacterClassDefaultInfo> CharacterClassInfo;
+	
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	FScalableFloat ArmorPenetrationModifierCoeffecient = .25f;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	FScalableFloat EffectiveModifierCoeffecient = .333f;
+	
+	
 
 	FCharacterClassDefaultInfo GetCharacterClassDefaultInfo(ECharacterClass CharacterClass);
 };

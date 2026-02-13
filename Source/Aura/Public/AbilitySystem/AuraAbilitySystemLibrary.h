@@ -30,4 +30,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable,Category="AuraAbilitySystemLibrary|CharacterClassDefaults",meta=(WorldContext="WorldContextObject"))
 	static void InitializeStartupAbilities(const UObject* WorldContextObject,ECharacterClass CharacterClass,UAbilitySystemComponent* Asc);
+	
+	UFUNCTION(BlueprintCallable,Category="AuraAbilitySystemLibrary|CharacterClassDefaults")
+	static UCharacterClassInfo* GetCharacterClassInfo(const UObject* WorldContextObject);
 };
