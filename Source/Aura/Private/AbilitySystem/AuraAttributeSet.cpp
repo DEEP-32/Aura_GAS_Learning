@@ -180,14 +180,14 @@ void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData
 		Properties.TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
 		Properties.TargetCharacter = Cast<ACharacter>(Properties.TargetAvatarActor);
 		Properties.TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Properties.TargetAvatarActor);
-	}
+	} 
 }
 
 void UAuraAttributeSet::ShowFloatingText(const FEffectProperties& Props, float Damage,bool bBlockedHit,bool bCriticalHit) const {
 	if (Props.SourceCharacter != Props.TargetCharacter) {
 		APlayerController* PlayerController = UGameplayStatics::GetPlayerController(Props.SourceCharacter,0);
 		if (AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(PlayerController)) {
-			AuraPlayerController->ShowDamageNumber(Damage,Props.TargetCharacter);
+			AuraPlayerController->ShowDamageNumber(Damage,Props.TargetCharacter, bBlockedHit, bCriticalHit);
 		}
 	}
 }
