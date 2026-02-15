@@ -51,9 +51,11 @@ void AAuraEnemy::HitRectTagChanged(const FGameplayTag CallbackTag, int32 NewCoun
 
 void AAuraEnemy::BeginPlay() {
 	Super::BeginPlay();
-	InitAbilityActorInfo();
 	GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
-	UAuraAbilitySystemLibrary::InitializeStartupAbilities(this,CharacterClass,AbilitySystemComponent);
+	InitAbilityActorInfo();
+	if (HasAuthority()) {
+		UAuraAbilitySystemLibrary::InitializeStartupAbilities(this,CharacterClass,AbilitySystemComponent);
+	}
 	
 	
 
@@ -97,7 +99,10 @@ void AAuraEnemy::InitAbilityActorInfo() {
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 
-	InitializeDefaultAttribute();
+	if (HasAuthority()) {
+		InitializeDefaultAttribute();
+		
+	}
 }
 
 void AAuraEnemy::InitializeDefaultAttribute() const {

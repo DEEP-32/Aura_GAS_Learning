@@ -204,7 +204,7 @@ void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData
 
 void UAuraAttributeSet::ShowFloatingText(const FEffectProperties& Props, float Damage,bool bBlockedHit,bool bCriticalHit) const {
 	if (Props.SourceCharacter != Props.TargetCharacter) {
-		APlayerController* PlayerController = UGameplayStatics::GetPlayerController(Props.SourceCharacter,0);
+		AController* PlayerController = Props.SourceCharacter->Controller;
 		if (AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(PlayerController)) {
 			AuraPlayerController->ShowDamageNumber(Damage,Props.TargetCharacter, bBlockedHit, bCriticalHit);
 		}
