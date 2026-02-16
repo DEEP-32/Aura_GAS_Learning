@@ -31,7 +31,7 @@ struct AuraDamageStatics {
 	AuraDamageStatics() {
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet,Armor,Target,false);	
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet,BlockChance,Target,false);	
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet,ArmorPenetration,Source,false)
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet,ArmorPenetration,Source,false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet,CriticalHitChance,Source,false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet,CriticalHitResistance,Target,false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet,CriticalHitDamage,Source,false);
@@ -85,7 +85,7 @@ struct AuraDamageStatics {
 	}
 };
 
-static const AuraDamageStatics DamageStatics() {
+static const AuraDamageStatics& DamageStatics() {
 	static AuraDamageStatics Statics;
 	return Statics;
 }
@@ -165,8 +165,8 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	const float ArmonPenetrationCoff = CharacterInfo->ArmorPenetrationModifierCoeffecient.GetValueAtLevel(SourceCombat->GetPlayerLevel());
 	const float EffectiveArmorCoff = CharacterInfo->EffectiveModifierCoeffecient.GetValueAtLevel(TargetCombat->GetPlayerLevel());
 	
-	const float EffectiveArmor = TargetArmor * (100  - SourceArmorPenetration * ArmonPenetrationCoff) / 100.f; 
-	Damage *= (100 - EffectiveArmor * EffectiveArmorCoff) / 100.f;
+	const float EffectiveArmor = TargetArmor * (100.f  - SourceArmorPenetration * ArmonPenetrationCoff) / 100.f; 
+	Damage *= (100.f - EffectiveArmor * EffectiveArmorCoff) / 100.f;
 	
 	
 	float SourceCriticalHitChance = 0.f;
