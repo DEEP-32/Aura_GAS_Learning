@@ -131,7 +131,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	float Damage = 0;
 	FGameplayTagContainer AllDamageTags = UGameplayTagsManager::Get().RequestGameplayTagChildren(FAuraGameplayTags::Get().Damage);
 	for (const auto& PairTag : FAuraGameplayTags::Get().DamageTypesToResistance ) {
-		const FGameplayEffectAttributeCaptureDefinition ResistanceDef = DamageStatics().TagsToCaptureDef[PairTag.Value];
+		const FGameplayEffectAttributeCaptureDefinition ResistanceDef = AuraDamageStatics().TagsToCaptureDef[PairTag.Value];
 		float Resistance = 0.f;
 		ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ResistanceDef,EvaluateParameters,Resistance);
 		Resistance = FMath::Clamp(Resistance, 0.f,100.f);
